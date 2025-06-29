@@ -55,7 +55,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky z-50 top-4 flex justify-between items-center w-full h-16 px-8 rounded-full bg-white shadow-[0px_0px_40px_0px_rgba(0,_0,_0,_0.1)] text-[#21356e] hover:text-[#1f273d]">
+    <header className="sticky z-50 top-4 flex justify-between items-center md:w-5/6 w-11/12 h-16 px-8 rounded-full bg-white shadow-[0px_0px_40px_0px_rgba(0,_0,_0,_0.1)] text-[#21356e] hover:text-[#1f273d]">
       {/* LOGO */}
       <div className="h-1/2 min-w-[75px]">
         <Link href="/">
