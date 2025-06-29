@@ -54,11 +54,11 @@ function ScrollingRow({
 
 export default function ToolsSection() {
   return (
-    <section className="relative bg-white py-24">
+    <section className="relative w-screen bg-white py-24">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-white" />
 
       <div className="relative mx-auto max-w-7xl px-6">
-        <h2 className="mb-14 text-center text-3xl font-extrabold tracking-tight text-emerald-600">
+        <h2 className="mb-14 text-center text-xl md:text-3xl font-extrabold tracking-tight text-emerald-600">
           Kuasai Tools di&nbsp;bidang&nbsp;Data&nbsp;Science
         </h2>
 
