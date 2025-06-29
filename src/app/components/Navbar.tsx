@@ -1,26 +1,135 @@
+"use client";
+
+import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
-    
+  const navRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
+  const [activePos, setActivePos] = useState({ left: 0, width: 0 });
+  const [open, setOpen] = useState(false);
+
+  const measureLink = useCallback((el: HTMLElement | null) => {
+    if (!navRef.current || !el) return { left: 0, width: 0 };
+    const navRect = navRef.current.getBoundingClientRect();
+    const rect = el.getBoundingClientRect();
+    return { left: rect.left - navRect.left, width: rect.width };
+  }, []);
+
+  const updateActive = useCallback(() => {
+    if (!navRef.current) return;
+    const activeLink = navRef.current.querySelector<HTMLAnchorElement>(
+      `a[href="${pathname}"]`
+    );
+    const pos = measureLink(activeLink);
+    setActivePos(pos);
+    setIndicator(pos);
+  }, [pathname, measureLink]);
+
+  useEffect(() => {
+    updateActive();
+  }, [updateActive]);
+
+  useEffect(() => {
+    window.addEventListener("resize", updateActive);
+    return () => window.removeEventListener("resize", updateActive);
+  }, [updateActive]);
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const pos = measureLink(e.currentTarget);
+    setIndicator(pos);
+  };
+
+  const handleMouseLeave = () => {
+    setIndicator(activePos);
+  };
+
+  const links = [
+    { href: "/", label: "Home" },
+    { href: "/mentoring", label: "Mentoring" },
+    { href: "/practice", label: "Practice" },
+    { href: "/bootcamp", label: "Bootcamp" },
+  ];
+
   return (
-    <div className="sticky top-1 flex justify-between items-center w-full h-16 px-4 rounded-full bg-slate-100 text-black dark:bg-slate-900 dark:text-slate-50">
+    <header className="sticky z-50 top-4 flex justify-between items-center w-full h-16 px-8 rounded-full bg-white shadow-[0px_0px_40px_0px_rgba(0,_0,_0,_0.1)] text-[#21356e] hover:text-[#1f273d]">
       {/* LOGO */}
-      <div className="h-full ">
-        <img className="h-full" src="./images/logo.png" alt="Logo" />
+      <div className="h-1/2 min-w-[75px]">
+        <Link href="/">
+          <img className="h-full" src="./images/logo.png" alt="Logo" />
+        </Link>
       </div>
       {/* NAV */}
-      <nav>
-        <ul className="flex gap-10 font-bold">
-          <li><Link id="home" href="/">HOME</Link></li>
-          <li><Link id="mentoring" href="/mentoring"></Link>MENTORING</li>
-          <li><Link id="practice" href="/practice"></Link>PRACTICE</li>
-          <li><Link id="bootcamp" href="/bootcamp"></Link>BOOTCAMP</li>
+      <nav
+        ref={navRef}
+        onMouseLeave={handleMouseLeave}
+        className="relative hidden md:flex-1 md:flex justify-center"
+      >
+        <ul className="flex gap-6 px-4 py-2">
+          {links.map(({ href, label }) => {
+            return (
+              <Link
+                key={href}
+                href={href}
+                onMouseEnter={handleMouseEnter}
+                className="relative z-10 px-2 py-1 text-[#21356e] hover:text-[#1f273d] transition-colors"
+              >
+                {label}
+              </Link>
+            );
+          })}
         </ul>
+        <span
+          className="absolute bottom-0 h-1 shadow bg-[#63b594]/90 rounded-full transition-all duration-300"
+          style={{
+            left: indicator.left,
+            width: indicator.width,
+          }}
+        />
       </nav>
-      {/* CART */}
-      <div>
-        <svg className="e-font-icon-svg e-eicon-cart-solid" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M188 167H938C943 167 949 169 953 174 957 178 959 184 958 190L926 450C919 502 875 542 823 542H263L271 583C281 631 324 667 373 667H854C866 667 875 676 875 687S866 708 854 708H373C304 708 244 659 230 591L129 83H21C9 83 0 74 0 62S9 42 21 42H146C156 42 164 49 166 58L188 167ZM771 750C828 750 875 797 875 854S828 958 771 958 667 912 667 854 713 750 771 750ZM354 750C412 750 458 797 458 854S412 958 354 958 250 912 250 854 297 750 354 750Z"></path></svg>
+      <div className="relative w-full md:w-fit flex justify-center items-center">
+        {/* Mobile menu button */}
+        <button
+          className="md:hidden p-2 text-[#21356e]"
+          onClick={() => setOpen((o) => !o)}
+          aria-label="Toggle menu"
+        >
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
+        {open && (
+          <ul className="absolute left-1/2 -translate-x-1/2 w-full top-14 flex flex-col justify-center max-w-5/6 md:hidden bg-white shadow-lg rounded-xl">
+            {links.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  className={`block px-4 py-3 text-[#21356e] hover:bg-gray-100 ${
+                    pathname === href ? "font-semibold" : ""
+                  }`}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-    </div>
+      {/* CART */}
+      <button className="hover:cursor-pointer">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          fill="currentColor"
+          className="bi bi-cart2"
+          viewBox="0 0 16 16"
+        >
+          <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
+        </svg>
+      </button>
+    </header>
   );
 }
