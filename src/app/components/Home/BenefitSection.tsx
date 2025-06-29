@@ -57,7 +57,7 @@ export default function BenefitSection() {
           <motion.div
             key={i}
             variants={card}
-            className={`relative ${i % 2 == 0 ? "translate-0 md:-translate-y-12" : "translate-0 md:translate-y-12"} group h-56 overflow-hidden rounded-xl shadow-lg lg:h-64`}
+            className={`relative ${i % 2 == 0 ? "translate-0 sm:-translate-y-12" : "translate-0 sm:translate-y-12"} group h-56 overflow-hidden rounded-xl shadow-lg lg:h-64`}
           >
             <Image
               src={c.src}
