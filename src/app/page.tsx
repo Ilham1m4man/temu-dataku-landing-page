@@ -11,7 +11,7 @@ import FooterSection from "./components/Home/FooterSection";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[20px_1fr] items-center justify-items-center min-h-screen gap-16 font-[family-name:var(--font-geist-sans)]">
       <Navbar />
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <HeroSection />
