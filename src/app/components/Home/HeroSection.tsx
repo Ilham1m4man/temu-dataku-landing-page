@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-import Image from 'next/image'
 import { motion } from 'motion/react'
 
 export default function HeroSection() {
@@ -11,10 +9,10 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
-        className="container px-4 py-16 flex flex-col items-center text-center gap-12"
+        className="container px-4 py-24 gap-12"
       >
         {/* Text & CTA */}
-        <div className="w-full z-10">
+        <div className="w-full z-10 flex flex-col gap-0 md:gap-10 items-center text-center">
           <h3 className="text-xl text-[#1f273d] font-medium mb-4">
             Bosan Belajar Data Science Sendirian?
           </h3>
@@ -22,7 +20,7 @@ export default function HeroSection() {
             Dapatkan Bimbingan <br />
             <span className="text-[#63b594]">Mentor Ahli</span> di TemuDataku
           </h1>
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-600 max-w-xl mb-8">
             Bergabung dengan komunitas pembelajar Data Science, dapatkan sesi live mentoring,
             dan akses resource eksklusif.
           </p>
