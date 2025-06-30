@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { pool } from "./db";
 import "dotenv/config";
+import { productsRouter } from "./product";
 
 export const login: RequestHandler = async (
   req: Request,
@@ -35,7 +36,7 @@ export const login: RequestHandler = async (
     return;
   }
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
+  const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET as string, {
     expiresIn: "7d",
   });
 
@@ -51,7 +52,16 @@ const app = express();
 app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
 app.use(express.json());
 
+app.use("/products", productsRouter)
 app.post("/login", login);
+app.post('/logout', (_req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  })
+  res.json({ success: true })
+})
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`API on :${PORT}`));

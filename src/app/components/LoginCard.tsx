@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Eye, EyeOff } from "lucide-react";
 
-export default function LoginPage() {
+export default function LoginCard() {
   const [isHidden, setIsHidden] = useState(true);
   const [error, setError] = useState("");
 
