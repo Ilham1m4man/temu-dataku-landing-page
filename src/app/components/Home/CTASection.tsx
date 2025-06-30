@@ -1,6 +1,6 @@
 'use client';
-import { motion } from 'framer-motion';
-import { CircleCheck } from 'lucide-react'; //  npm i @heroicons/react
+import { motion } from 'motion/react';
+import { CircleCheck } from 'lucide-react';
 
 export default function CTASection() {
   const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1];

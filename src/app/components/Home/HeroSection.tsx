@@ -11,7 +11,6 @@ export default function HeroSection() {
         transition={{ duration: 0.8, ease: 'easeOut' }}
         className="container px-4 py-24 gap-12"
       >
-        {/* Text & CTA */}
         <div className="w-full z-10 flex flex-col gap-0 md:gap-10 items-center text-center">
           <h3 className="text-xl text-[#1f273d] font-medium mb-4">
             Bosan Belajar Data Science Sendirian?
@@ -33,8 +32,6 @@ export default function HeroSection() {
             </button>
           </div>
         </div>
-
-        {/* Illustration */}
       </motion.div>
     </section>
   )

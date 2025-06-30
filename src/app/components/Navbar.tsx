@@ -55,9 +55,9 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky z-50 top-4 flex justify-between items-center md:w-5/6 w-11/12 h-16 px-8 rounded-full bg-white shadow-[0px_0px_40px_0px_rgba(0,_0,_0,_0.1)] text-[#21356e] hover:text-[#1f273d]">
+    <header className="sticky z-50 top-4 flex justify-between items-center md:w-5/6 w-11/12 h-16 px-2.5 rounded-full bg-white shadow-[0px_0px_40px_0px_rgba(0,_0,_0,_0.1)] text-[#21356e] hover:text-[#1f273d]">
       {/* LOGO */}
-      <div className="h-1/2 min-w-[75px]">
+      <div className="h-1/2 min-w-[75px] ml-3 md:ml-6">
         <Link href="/">
           <img className="h-full" src="./images/logo.png" alt="Logo" />
         </Link>
@@ -91,7 +91,7 @@ export default function Navbar() {
         />
       </nav>
       <div className="relative w-full md:w-fit flex justify-center items-center">
-        {/* Mobile menu button */}
+        {/* MOBILE */}
         <button
           className="md:hidden p-2 text-[#21356e]"
           onClick={() => setOpen((o) => !o)}
@@ -130,6 +130,12 @@ export default function Navbar() {
           <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
         </svg>
       </button>
+      <Link
+        className="bg-[#1f273d] ml-4 md:ml-6 rounded-full px-6 py-3 text-white shadow-[0px_0px_40px_0px_rgba(0,_0,_0,_0.1)]"
+        href={"/login"}
+      >
+        Login
+      </Link>
     </header>
   );
 }

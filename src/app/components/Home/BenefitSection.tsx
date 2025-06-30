@@ -42,10 +42,8 @@ export default function BenefitSection() {
     visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] } },
   };
 
-  /* ---------- component ---------- */
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 lg:grid lg:grid-cols-2 lg:gap-20">
-      {/* grid kartu kiri */}
       <motion.div
         variants={container}
         initial="hidden"
